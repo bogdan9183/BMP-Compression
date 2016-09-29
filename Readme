@@ -1,0 +1,64 @@
+Structuri de date
+Tema 2 
+Arbore cuaternar de compresie
+
+Bogdan Alexandru Cionca , 311CC
+
+Programul reuseste sa realizeze compresia si decompresia imaginilor in format
+bmp prin utilizarea unei structuri de tip arbore cuaternar.
+
+1. Compresia
+
+Pentru realizarea compresiei, se citeste headerul din fisierul de intrare si se 
+scrie in fisierul de iesire. Se citeste dimensiunea pozei din header, si se
+aloca memorie pentru matricea de pixeli, care se va citi ulterior.
+
+Pentru realizarea arborelui cuaternar, se pleaca recursiv in matrice, stiind
+la fiecare pas intervalele, atat pe orizontala, cat si pe verticala, in care
+vom verifica daca exista una sau mai multe culori. Daca patratul respectiv
+contine o singura culoare, se creeaza un nod nou in arbore in care se memoreaza
+culoarea respectiva. Altfel, patratul se imparte in patru si se verifica cele
+patru patrate mai mici in care se descompune cel mare.
+
+Odata arborele creat, se aloca memorie pentru vector, pe pozitia 0 se scrie
+radacina, iar apoi se pleaca in adancime si se scrie fiecare nod in vector.
+In final, vectorul se scrie in fisierul de compresie.
+
+2. Decompresia 
+
+Decompresia unei imagini presupune procesul invers compresiei. Din fisierul de
+intrare se citesc headerul, numarul de noduri, precum si vectorul de culori.
+Cunoscand dimensiunea fotografiei, se aloca memorie pentru matrice.
+Arborele se creeaza intr-o maniera opusa celei de la cerinta 1. Plecand de pe
+pozitia 0 a vectorului, corespunzator radacinii arborelui, se creeaza arborele
+mergand recursiv in fiecare dintre cei 4 fii pana la gasirea nodurilor terminale.
+In cazul in care se ajunge pe o frunza, informatia de pe pozitia curenta din
+vector se copiaza in nodul arborelui.
+
+Urmatorul pas il reprezinta reconstituirea matricii de pixeli din arborele de
+compresie. Se trimit cele patru margini ale imaginii ca parametru si, in cazul
+in care nodul curent al arborelui este o frunza, se scrie in matrice culoarea
+corespunzatoare pe toate pozitiile matricii, intre left-right, top-bottom. 
+Altfel, patratul este impartit in 4 si se efectueaza acelasi procedeu pentru
+cei patru fii.
+
+Odata obtinuta matricea, se scrie in fisier, de jos in sus.
+
+3. Rotirea imaginii
+
+Pentru rotirea imaginii m-am folosit de functiile de la cerintele 1 si 2. 
+Prin efectuarea pasilor de la 1) Compresie se ajunge la vectorul de noduri.
+Rotirea propriu zisa se face recursiv prin permutarea fiilor fiecarui nod.
+Procesul se repeta de atatea ori cat este specificat in linia de comanda.
+Noul vector se reconstituie prin procedura de la cerinta 2) Decompresie si va
+rezulta imaginea rotita.
+
+4. Bonus 
+
+Pentru a determina cel mai mic stramos comun a doua culori, se memoreaza cele
+doua culori in structuri de tip Pixel. Plecand din radacina, verific care dintre
+noduri sunt stramosi ai celor doua culori. Verificarea se face verificand
+in toti copiii daca ambele culori se afla printre frunze. Intr-o variabila
+separata se tine minte cel mai mic stramos, iar, in cazul in care se gaseste 
+unul cu o suprafata mai mica decat a acestuia, se memoreaza.
+
